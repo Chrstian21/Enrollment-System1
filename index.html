@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enrollment System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- LOGIN PAGE -->
+    <div id="loginPage" class="login-page">
+        <div class="login-card">
+            <div class="logo">🎓</div>
+            <h1>Enrollment System</h1>
+            <p>Student Enrollment Portal</p>
+
+            <form id="loginForm">
+                <label>Email</label>
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    required
+                >
+
+                <label>Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    required
+                >
+
+                <button type="submit" class="primary-btn">
+                    Login
+                </button>
+            </form>
+
+            <p class="demo-text">
+                Demo: student@school.com / 123456
+            </p>
+        </div>
+    </div>
+
+
+    <!-- MAIN APPLICATION -->
+    <div id="app" class="app hidden">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <div class="brand">
+                🎓 <span>EnrollSys</span>
+            </div>
+
+            <nav>
+                <button class="nav-btn active" data-page="dashboard">
+                    🏠 Dashboard
+                </button>
+
+                <button class="nav-btn" data-page="courses">
+                    📚 Courses
+                </button>
+
+                <button class="nav-btn" data-page="schedule">
+                    📅 My Schedule
+                </button>
+
+                <button class="nav-btn" data-page="enrollments">
+                    📝 Enrollments
+                </button>
+            </nav>
+
+            <button id="logoutBtn" class="logout-btn">
+                🚪 Logout
+            </button>
+
+        </aside>
+
+
+        <!-- CONTENT -->
+        <main class="main-content">
+
+            <!-- TOP BAR -->
+            <header class="topbar">
+                <div>
+                    <h2 id="pageTitle">Dashboard</h2>
+                </div>
+
+                <div class="user-info">
+                    <div class="avatar">R</div>
+                    <div>
+                        <strong>Raphael</strong>
+                        <small>Student</small>
+                    </div>
+                </div>
+            </header>
+
+
+            <!-- DASHBOARD -->
+            <section id="dashboard" class="page active-page">
+
+                <div class="welcome">
+                    <div>
+                        <h1>Welcome back, Raphael! 👋</h1>
+                        <p>Manage your enrollment and academic schedule.</p>
+                    </div>
+
+                    <button class="primary-btn" onclick="showPage('courses')">
+                        Browse Courses
+                    </button>
+                </div>
+
+
+                <div class="stats">
+
+                    <div class="stat-card">
+                        <div class="stat-icon blue">📚</div>
+                        <div>
+                            <span>Enrolled Courses</span>
+                            <h2 id="courseCount">0</h2>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon green">📅</div>
+                        <div>
+                            <span>Total Units</span>
+                            <h2 id="unitCount">0</h2>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon orange">⏰</div>
+                        <div>
+                            <span>Semester</span>
+                            <h2>1st</h2>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon purple">🎓</div>
+                        <div>
+                            <span>Status</span>
+                            <h2>Active</h2>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2>Recent Enrollments</h2>
+                    </div>
+
+                    <div id="recentEnrollments">
+                        <p class="empty">
+                            No courses enrolled yet.
+                        </p>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- COURSES -->
+            <section id="courses" class="page">
+
+                <div class="section-header">
+                    <div>
+                        <h1>Available Courses</h1>
+                        <p>Select courses that you want to enroll in.</p>
+                    </div>
+
+                    <input
+                        type="text"
+                        id="courseSearch"
+                        placeholder="🔍 Search course..."
+                    >
+                </div>
+
+
+                <div id="courseList" class="course-grid"></div>
+
+            </section>
+
+
+            <!-- SCHEDULE -->
+            <section id="schedule" class="page">
+
+                <div class="section-header">
+                    <div>
+                        <h1>My Schedule</h1>
+                        <p>Your enrolled course schedule.</p>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Course</th>
+                                <th>Schedule</th>
+                                <th>Room</th>
+                                <th>Instructor</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="scheduleTable"></tbody>
+                    </table>
+                </div>
+
+            </section>
+
+
+            <!-- ENROLLMENTS -->
+            <section id="enrollments" class="page">
+
+                <div class="section-header">
+                    <div>
+                        <h1>My Enrollments</h1>
+                        <p>View your enrolled subjects.</p>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Course</th>
+                                <th>Units</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="enrollmentTable"></tbody>
+                    </table>
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- COURSE MODAL -->
+    <div id="courseModal" class="modal hidden">
+
+        <div class="modal-content">
+
+            <button class="close-btn" onclick="closeModal()">
+                ×
+            </button>
+
+            <h2 id="modalTitle">Course</h2>
+
+            <div id="modalDetails"></div>
+
+            <button id="confirmEnroll" class="primary-btn">
+                Confirm Enrollment
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
